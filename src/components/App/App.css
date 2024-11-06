@@ -1,0 +1,212 @@
+/* ==================MainPage============================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #ebebeb;
+  border: 4px solid transparent;
+  background-clip: content-box;
+  top: 0;
+}
+::-webkit-scrollbar-thumb {
+  background: #495471;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+/* ====================================================== */
+/* =======================MainHeader===================== */
+.main_header {
+  height: 100px;
+  background: #434c63;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 58px;
+}
+.j_name {
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  cursor: pointer;
+}
+.journal_name {
+  width: auto;
+  padding-top: 14px;
+}
+.name_of_teacher {
+  color: #fff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+}
+.btn_exit {
+  border-radius: 7px;
+  background: #353f57;
+  height: 51px;
+  color: #fff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 113px;
+  border: none;
+  cursor: pointer;
+  margin-top: 25px;
+}
+.btn_exit:hover {
+  background: #353f57;
+  box-shadow: 0px 0px 20px 0px #232c41 inset;
+}
+.right_block {
+  display: flex;
+}
+.block_of_name {
+  padding-top: 40px;
+  padding-right: 40px;
+}
+
+/* ====================================================== */
+/* ====================MainModal========================= */
+.modal_open {
+  transform: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(26, 30, 46, 0.5);
+  z-index: 3;
+}
+.data-containers {
+  display: flex;
+  flex-direction: row;
+}
+.data-div {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 10px;
+}
+.data {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid hsl(0, 0%, 80%);
+  height: 34px;
+  text-indent: 5px;
+}
+.data:hover {
+  border-color: hsl(0, 0%, 70%);
+}
+.data:focus-visible {
+  outline: none;
+  border-color: #2684ff;
+  box-shadow: 0 0 0 1px #2684ff;
+}
+/* ====================================================== */
+.custom-select {
+  width: 200px;
+}
+.ag-cell {
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+}
+.ag-header-cell {
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 19px;
+}
+.ag-row:hover {
+  background: #434c63 !important;
+  color: white !important;
+}
+
+.ag-row:hover .ag-icon {
+  color: white !important;
+}
+.ag-theme-alpine .ag-row-selected {
+  background-color: #434c63 !important;
+  background: #434c63 !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+/* =======================================Loader=========================== */
+.loader {
+  position: absolute;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  perspective: 800px;
+}
+
+.inner {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.inner.one {
+  left: 0%;
+  top: 0%;
+  animation: rotate-one 1s linear infinite;
+  border-bottom: 3px solid #373e51;
+}
+
+.inner.two {
+  right: 0%;
+  top: 0%;
+  animation: rotate-two 1s linear infinite;
+  border-right: 3px solid #373e51;
+}
+
+.inner.three {
+  right: 0%;
+  bottom: 0%;
+  animation: rotate-three 1s linear infinite;
+  border-top: 3px solid #373e51;
+}
+
+@keyframes rotate-one {
+  0% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-two {
+  0% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-three {
+  0% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+  }
+}
+/* =======================================Loader=========================== */
