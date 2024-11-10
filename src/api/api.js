@@ -2,13 +2,15 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const defaultOptionsPatent = {
-  baseURL: "http://192.168.11.252:18088/",
+  //baseURL: "http://192.168.11.252:18088/",
+  baseURL: "https://schedulecit.vstu.by/dean",
   headers: {
     "Content-Type": "application/json",
   },
 };
 const defaultOptionsPatentDean = {
-  baseURL: "http://192.168.11.252:18076/",
+  //baseURL: "http://192.168.11.252:18076/",
+  baseURL: "https://schedulecit.vstu.by/dean",
   headers: {
     "Content-Type": "application/json",
   },

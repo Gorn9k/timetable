@@ -210,3 +210,32 @@
   }
 }
 /* =======================================Loader=========================== */
+.table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  word-break: break-word;
+  text-align: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  overflow: hidden;
+  color: #434c63;
+}
+
+.table, .th, .td {
+  border: 1px solid #E2E8F0
+}
+
+.thead {
+  /*position: sticky; */
+  /*top: 0; */
+  /*background-color: #f1f1f1; */
+  /*z-index: 1;*/
+  font-size: 1.125em;
+  background: #434C63;
+  color: #FFFFFF
+}
+
+.td, .th {
+  padding: 8px;
+}

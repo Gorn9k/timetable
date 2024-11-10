@@ -6,7 +6,7 @@ export const SemesterSelectContainer = () => {
     for (let i = 1; i < 13; i++) {
         semesters.push(
             {
-                value: i, label: `${i}-й номер семестра`
+                value: i, label: `${i}-й семестр`
             }
         )
     }

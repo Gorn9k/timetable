@@ -1,8 +1,8 @@
 import Select from "react-select";
 import {useEffect, useState} from "react";
-import {getDepartments, unAuthorized} from "../../../api/api";
+import {getDepartments} from "../../../api/api";
 
-export const DepartmentSelect = () => {
+export const DepartmentSelectContainer = () => {
 
     const [departments, setDepartments] = useState([]);
 
