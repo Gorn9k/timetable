@@ -1,8 +1,11 @@
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getGroupSchedule} from "../../api/schedule-api";
+import {broadcastChannel} from "../../store";
 
 export const GroupSchedule = () => {
+
+    const isCloseTimetable = useSelector(state => state.loadPage.isCloseTimetable)
 
     const groupName = useSelector(state => state.loadPage.groupName);
 
@@ -32,8 +35,14 @@ export const GroupSchedule = () => {
         })
     }
 
+    if (isCloseTimetable) {
+        broadcastChannel.close()
+        window.close()
+        return
+    }
+
     return <>
-        <div>{groupName}</div>
+        <div>{groupName && groupName.name}</div>
         <table className={'table'}>
             <thead className={'thead'}>
             <tr>
@@ -50,7 +59,7 @@ export const GroupSchedule = () => {
             </tr>
             </thead>
             <tbody>
-            <Body groupName={groupName}/>
+            <Body groupName={groupName && groupName.name}/>
             </tbody>
         </table>
     </>

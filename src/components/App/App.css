@@ -239,3 +239,7 @@
 .td, .th {
   padding: 8px;
 }
+
+.selectedTd {
+  background: #ff8484 !important;
+}

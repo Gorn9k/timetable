@@ -4,7 +4,7 @@ import {getDepartments} from "../../../api/api";
 import {useDispatch} from "react-redux";
 import {setDepartmentName} from "../../../redux/slices/loadSlice";
 
-export const DepartmentSelectContainer = () => {
+export const DepartmentSelectContainer = ({departmentName}) => {
 
     const [departments, setDepartments] = useState([]);
 
@@ -22,6 +22,10 @@ export const DepartmentSelectContainer = () => {
 
     return <Select placeholder={'Выберите кафедру'}
                    isClearable={true}
+                   defaultValue={departmentName ? {
+                       value: departmentName,
+                       label: `Кафедра ${departmentName}`
+                   } : undefined}
                    options={departments}
                    onChange={(e) => e && dispatch(setDepartmentName(e.value))}/>
 }

@@ -1,15 +1,29 @@
 import {useEffect, useState} from "react";
 import {getLoad} from "../../api/load-api";
-import {useDispatch} from "react-redux";
-import {setGroupName, setTeacherFio} from "../../redux/slices/loadSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    setGroupName,
+    setLaboratoryHours,
+    setLectureHours,
+    setPracticeHours,
+    setTeacherFio
+} from "../../redux/slices/loadSlice";
 import {getTeachers} from "../../api/api";
 import {useLocation} from "react-router-dom";
+import {broadcastChannel} from "../../store";
 
 export const LoadContainer = () => {
+
+    const isCloseTimetable = useSelector(state => state.loadPage.isCloseTimetable)
 
     const Body = () => {
 
         const [loads, setLoads] = useState([])
+        const lectureHours = useSelector(state => state.loadPage.lectureHours)
+        const practiceHours = useSelector(state => state.loadPage.practiceHours)
+        const laboratoryHours = useSelector(state => state.loadPage.laboratoryHours)
+        const teacherFio = useSelector(state => state.loadPage.teacherFio)
+        const groupName = useSelector(state => state.loadPage.groupName)
 
         const params = new URLSearchParams(useLocation().search)
 
@@ -41,14 +55,34 @@ export const LoadContainer = () => {
                 <td className={'td'}>ФИТиР</td>
                 <td className={'td'}>{load.disciplineName}</td>
                 <td className={'td'}>{load.lecture + load.practice + load.laboratory}</td>
-                <td className={'td'}>{load.lecture}</td>
-                <td className={'td'}>{load.practice}</td>
-                <td className={'td'}>{load.laboratory}</td>
+                <td className={`${lectureHours && lectureHours.id === load.id ? 'selectedTd ' : ''}td`}
+                    onClick={() => dispatch(setLectureHours(lectureHours && lectureHours.id === load.id ? null : {
+                        id: load.id,
+                        hours: load.lecture
+                    }))}>
+                    {load.lecture}
+                </td>
+                <td className={`${practiceHours && practiceHours.id === load.id ? 'selectedTd ' : ''}td`}
+                    onClick={() => dispatch(setPracticeHours(practiceHours && practiceHours.id === load.id ? null : {
+                        id: load.id,
+                        hours: load.practice
+                    }))}>
+                    {load.practice}
+                </td>
+                <td className={`${laboratoryHours && laboratoryHours.id === load.id ? 'selectedTd ' : ''}td`}
+                    onClick={() =>
+                        dispatch(setLaboratoryHours(laboratoryHours && laboratoryHours.id === load.id ? null : {
+                            id: load.id,
+                            hours: load.laboratory
+                        }))}>
+                    {load.laboratory}
+                </td>
                 <td className={'td'}>{`${load.group}/${load.studentsCount}`}</td>
-                <td className={'td'} onClick={() => {
-                    dispatch(setTeacherFio(load.teacherFio))
-                    dispatch(setGroupName(load.group))
-                }}>
+                <td className={`${teacherFio && teacherFio.id === load.id ? 'selectedTd ' : ''}td`}
+                    onClick={() => {
+                        dispatch(setTeacherFio(teacherFio && teacherFio.id === load.id ? null : {id: load.id, fio: load.teacherFio}))
+                        dispatch(setGroupName(groupName && groupName.id === load.id ? null : {id: load.id, name: load.group}))
+                    }}>
                     {load.teacherFio}
                 </td>
                 <td className={'td'}>{'-'}</td>
@@ -60,6 +94,12 @@ export const LoadContainer = () => {
                 <td className={'td'}>{'-'}</td>
             </tr>
         })
+    }
+
+    if (isCloseTimetable) {
+        broadcastChannel.close()
+        window.close()
+        return
     }
 
     return <table className={'table'}>

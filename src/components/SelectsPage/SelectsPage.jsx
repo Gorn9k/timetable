@@ -2,9 +2,19 @@ import {DepartmentSelectContainer} from "./Selects/DepartmentSelectContainer";
 import {FormEducationSelectContainer} from "./Selects/FormEducationSelectContainer";
 import {SemesterSelectContainer} from "./Selects/SemesterSelectContainer";
 import {EducationYearSelectContainer} from "./Selects/EducationYearSelectContainer";
-import {TimetableButtonContainer} from "./TimetableButtonContainer";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {setIsCloseTimetable} from "../../redux/slices/loadSlice";
 
 export const SelectsPage = () => {
+
+    const departmentName = useSelector(state => state.loadPage.departmentName)
+    const educationForm = useSelector(state => state.loadPage.educationForm)
+    const semesterName = useSelector(state => state.loadPage.semesterName)
+    const learnYear = useSelector(state => state.loadPage.learnYear)
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const baseUrl = `${process.env.REACT_APP_BASE_URL}`
 
@@ -19,7 +29,6 @@ export const SelectsPage = () => {
                     learnYear
                 }
             )}`,
-            `${baseUrl}${process.env.REACT_APP_TIMETABLE_URL}`,
             `${baseUrl}${process.env.REACT_APP_TEACHER_SCHEDULE_URL}`,
             `${baseUrl}${process.env.REACT_APP_GROUP_SCHEDULE_URL}`
         ]
@@ -32,7 +41,6 @@ export const SelectsPage = () => {
     const height = Math.floor(screenHeight / 2);
 
     const positions = [
-        {left: 0, top: 0},
         {left: width, top: 0},
         {left: 0, top: height},
         {left: width, top: height}
@@ -50,10 +58,16 @@ export const SelectsPage = () => {
     }
 
     return <>
-        <DepartmentSelectContainer/>
-        <FormEducationSelectContainer/>
-        <SemesterSelectContainer/>
-        <EducationYearSelectContainer/>
-        <TimetableButtonContainer generateTimetableUrls={generateTimetableUrls} openTimetable={openTimetable}/>
+        <DepartmentSelectContainer departmentName={departmentName}/>
+        <FormEducationSelectContainer educationForm={educationForm}/>
+        <SemesterSelectContainer semesterName={semesterName}/>
+        <EducationYearSelectContainer learnYear={learnYear}/>
+        <button onClick={() => {
+            dispatch(setIsCloseTimetable(false))
+            openTimetable(generateTimetableUrls(departmentName, educationForm, semesterName, learnYear))
+            navigate('/timetable')
+        }}>
+            Развернуть диспетчерскую
+        </button>
     </>
 }

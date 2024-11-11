@@ -2,7 +2,7 @@ import Select from "react-select";
 import {useDispatch} from "react-redux";
 import {setLearnYear} from "../../../redux/slices/loadSlice";
 
-export const EducationYearSelectContainer = () => {
+export const EducationYearSelectContainer = ({learnYear}) => {
     const educationYears = [
         {
             value: '2024-2025',
@@ -14,6 +14,10 @@ export const EducationYearSelectContainer = () => {
 
     return <Select placeholder={'Выберите учебный год'}
                    options={educationYears}
+                   defaultValue={learnYear ? {
+                       value: `${learnYear}`,
+                       label: `${learnYear}-й учебный год`
+                   } : undefined}
                    isClearable={true}
                    onChange={(e) => e && dispatch(setLearnYear(e.value))}/>
 }

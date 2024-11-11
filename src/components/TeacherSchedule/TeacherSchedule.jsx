@@ -1,8 +1,11 @@
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getTeacherSchedule} from "../../api/schedule-api";
+import {broadcastChannel} from "../../store";
 
 export const TeacherSchedule = () => {
+
+    const isCloseTimetable = useSelector(state => state.loadPage.isCloseTimetable)
 
     const teacherFio = useSelector(state => state.loadPage.teacherFio);
 
@@ -32,8 +35,14 @@ export const TeacherSchedule = () => {
         })
     }
 
+    if (isCloseTimetable) {
+        broadcastChannel.close()
+        window.close()
+        return
+    }
+
     return <>
-        <div>{teacherFio}</div>
+        <div>{teacherFio && teacherFio.fio}</div>
         <table className={'table'}>
             <thead className={'thead'}>
             <tr>
@@ -50,7 +59,7 @@ export const TeacherSchedule = () => {
             </tr>
             </thead>
             <tbody>
-            <Body teacherFio={teacherFio}/>
+            <Body teacherFio={teacherFio && teacherFio.fio}/>
             </tbody>
         </table>
     </>
