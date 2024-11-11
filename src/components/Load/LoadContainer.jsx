@@ -2,18 +2,37 @@ import {useEffect, useState} from "react";
 import {getLoad} from "../../api/load-api";
 import {useDispatch} from "react-redux";
 import {setGroupName, setTeacherFio} from "../../redux/slices/loadSlice";
+import {getTeachers} from "../../api/api";
+import {useLocation} from "react-router-dom";
 
 export const LoadContainer = () => {
 
     const Body = () => {
 
-        const [loads, setLoads] = useState([]);
+        const [loads, setLoads] = useState([])
+
+        const params = new URLSearchParams(useLocation().search)
+
+        const departmentName = params.get('departmentName');
+        const educationForm = params.get('educationForm');
+        const semesterName = params.get('semesterName');
+        const learnYear = params.get('learnYear');
+
+        const validParams = departmentName && educationForm && semesterName && learnYear
 
         const dispatch = useDispatch();
 
         useEffect(() => {
-            getLoad()
-                .then(value => setLoads(value))
+            validParams && getLoad(departmentName, educationForm, semesterName, learnYear)
+                .then(loads => {
+                    loads && getTeachers(loads.map(value => value.teacherId))
+                        .then(teachers => {
+                            teachers && setLoads(loads.map(value => {
+                                const teacher = teachers.find(teacher => teacher.id === value.teacherId)
+                                if (teacher) return {...value, teacherFio: teacher.fullName}
+                            }))
+                        })
+                })
         }, []);
 
         return loads.map(load => {
@@ -27,7 +46,7 @@ export const LoadContainer = () => {
                 <td className={'td'}>{load.laboratory}</td>
                 <td className={'td'}>{`${load.group}/${load.studentsCount}`}</td>
                 <td className={'td'} onClick={() => {
-                    dispatch(setTeacherFio(load.teacherFio.split(' ')[0] === 'Корниенко' ? 'Корниенко Алексей Александрович' : ''))
+                    dispatch(setTeacherFio(load.teacherFio))
                     dispatch(setGroupName(load.group))
                 }}>
                     {load.teacherFio}

@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 
 const defaultOptionsPatent = {
   //baseURL: "http://192.168.11.252:18088/",
-  baseURL: "https://schedulecit.vstu.by/dean",
+  baseURL: "https://schedulecit.vstu.by/patent",
   headers: {
     "Content-Type": "application/json",
   },
@@ -37,6 +37,17 @@ export const unAuthorized = (error) => {
     console.log(error.toJSON().status);
   }
 };
+
+export const getTeachers = (ids) => {
+  return baseRoutPatentDean
+      .get(`/api/teachers/dto_rsql?sql=id=in=(${ids})`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        unAuthorized(error);
+      });
+}
 
 export const getTimetable = () => {
   return baseRoutPatent

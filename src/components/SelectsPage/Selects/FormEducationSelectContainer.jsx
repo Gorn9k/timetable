@@ -1,20 +1,24 @@
 import Select from "react-select";
+import {useDispatch} from "react-redux";
+import {setEducationForm} from "../../../redux/slices/loadSlice";
 
 export const FormEducationSelectContainer = () => {
     const educationForms = [
         {
-            value: 'Очная', label: 'Очная форма обучения'
+            value: 'очная', label: 'Очная форма обучения'
         },
         {
-            value: 'Заочная', label: 'Заочная форма обучения'
+            value: 'заочная', label: 'Заочная форма обучения'
         },
         {
-            value: 'Заочная сокращенная', label: 'Заочная сокращенная форма обучения'
+            value: 'заочная сокр.', label: 'Заочная сокращенная форма обучения'
         }
     ]
+
+    const dispatch = useDispatch();
 
     return <Select placeholder={'Выберите форму обучения'}
                    options={educationForms}
                    isClearable={true}
-                   onChange={(e) => e && console.log(`Вы выбрали ${e.label}`)}/>
+                   onChange={(e) => e && dispatch(setEducationForm(e.value))}/>
 }

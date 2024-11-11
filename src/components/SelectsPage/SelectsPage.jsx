@@ -2,16 +2,28 @@ import {DepartmentSelectContainer} from "./Selects/DepartmentSelectContainer";
 import {FormEducationSelectContainer} from "./Selects/FormEducationSelectContainer";
 import {SemesterSelectContainer} from "./Selects/SemesterSelectContainer";
 import {EducationYearSelectContainer} from "./Selects/EducationYearSelectContainer";
+import {TimetableButtonContainer} from "./TimetableButtonContainer";
 
 export const SelectsPage = () => {
 
     const baseUrl = `${process.env.REACT_APP_BASE_URL}`
-    const timetableUrls = [
-        `${baseUrl}${process.env.REACT_APP_LOAD_URL}`,
-        `${baseUrl}${process.env.REACT_APP_TIMETABLE_URL}`,
-        `${baseUrl}${process.env.REACT_APP_TEACHER_SCHEDULE_URL}`,
-        `${baseUrl}${process.env.REACT_APP_GROUP_SCHEDULE_URL}`
-    ]
+
+    const generateTimetableUrls = (departmentName, educationForm, semesterName, learnYear) => {
+        const isValid = departmentName && educationForm && semesterName && learnYear
+        return [
+            `${baseUrl}${process.env.REACT_APP_LOAD_URL}${isValid ? '?' : ''}${new URLSearchParams(
+                {
+                    departmentName,
+                    educationForm,
+                    semesterName,
+                    learnYear
+                }
+            )}`,
+            `${baseUrl}${process.env.REACT_APP_TIMETABLE_URL}`,
+            `${baseUrl}${process.env.REACT_APP_TEACHER_SCHEDULE_URL}`,
+            `${baseUrl}${process.env.REACT_APP_GROUP_SCHEDULE_URL}`
+        ]
+    }
 
     const screenWidth = window.screen.availWidth;
     const screenHeight = window.screen.availHeight;
@@ -26,7 +38,7 @@ export const SelectsPage = () => {
         {left: width, top: height}
     ];
 
-    const openTimetable = () => {
+    const openTimetable = (timetableUrls) => {
         timetableUrls.forEach((url, index) => {
             const {left, top} = positions[index];
             window.open(
@@ -42,6 +54,6 @@ export const SelectsPage = () => {
         <FormEducationSelectContainer/>
         <SemesterSelectContainer/>
         <EducationYearSelectContainer/>
-        <button onClick={openTimetable}>Развернуть диспетчерскую</button>
+        <TimetableButtonContainer generateTimetableUrls={generateTimetableUrls} openTimetable={openTimetable}/>
     </>
 }

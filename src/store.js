@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
 const syncedActions = new Set();
 
 const syncStateMiddleware = () => (next) => (action) => {
-    console.log(action)
     const currentType = [setTeacherFio.type, setGroupName.type].some(type =>
         type === action.type) ? action.type : null
     if (currentType && !syncedActions.has(currentType)) {
