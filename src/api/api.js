@@ -3,7 +3,8 @@ import { toast } from "react-hot-toast";
 
 const defaultOptionsPatent = {
   //baseURL: "http://192.168.11.252:18088/",
-  baseURL: "https://schedulecit.vstu.by/patent",
+  //baseURL: "https://schedulecit.vstu.by/patent",
+  baseURL: "http://localhost:18088",
   headers: {
     "Content-Type": "application/json",
   },
@@ -30,11 +31,13 @@ baseRoutPatentDean.interceptors.request.use(function (config) {
 });
 
 export const unAuthorized = (error) => {
-  if (error.toJSON().status === 401) {
-    localStorage.clear();
-    window.location.reload();
-  } else {
-    console.log(error.toJSON().status);
+  if (error) {
+    if (error.toJSON().status === 401) {
+      localStorage.clear();
+      window.location.reload();
+    } else {
+      console.log(error.toJSON().status);
+    }
   }
 };
 
@@ -106,7 +109,7 @@ export const getHiddenGroups = () => {
 
 export const updateTimetable = (dataRow, check) => {
   return baseRoutPatent
-    .put(`/api/rooms/put/?check=${check}`, dataRow)
+    .put(`/api/rooms/put?check=${check}`, dataRow)
     .then((response) => {
       toast.success("Успешно сохранено");
       return response.data;

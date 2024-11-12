@@ -85,13 +85,7 @@ export const LoadContainer = () => {
                     }}>
                     {load.teacherFio}
                 </td>
-                <td className={'td'}>{'-'}</td>
-                <td className={'td'}>{'-'}</td>
-                <td className={'td'}>{'-'}</td>
-                <td className={'td'}>{'-'}</td>
-                <td className={'td'}>{'-'}</td>
-                <td className={'td'}>{'-'}</td>
-                <td className={'td'}>{'-'}</td>
+                <td className={'td'}>{load.notes || '-'}</td>
             </tr>
         })
     }
@@ -105,31 +99,19 @@ export const LoadContainer = () => {
     return <table className={'table'}>
         <thead className={'thead'}>
         <tr>
-            <th className={'th'} rowSpan={3}>Курс</th>
-            <th className={'th'} rowSpan={3}>Факультет</th>
-            <th className={'th'} rowSpan={3}>Наименование дисциплины</th>
-            <th className={'th'} rowSpan={3}>Общее число часов в неделю</th>
+            <th className={'th'} rowSpan={2}>Курс</th>
+            <th className={'th'} rowSpan={2}>Факультет</th>
+            <th className={'th'} rowSpan={2}>Наименование дисциплины</th>
+            <th className={'th'} rowSpan={2}>Общее число часов в неделю</th>
             <th className={'th'} colSpan={3}>Виды занятий</th>
-            <th className={'th'} colSpan={7}>ФИО преподавателей, ведущих занятия, номера групп</th>
-            <th className={'th'} rowSpan={3}>Аудитория лекционная с проектором (аудитории на первом этаже)</th>
-            <th className={'th'} rowSpan={3}>Примечание (необходимые ауд., лекционная неделя и др.)</th>
+            <th className={'th'} rowSpan={2}>№ группы</th>
+            <th className={'th'} rowSpan={2}>ФИО преподавателя</th>
+            <th className={'th'} rowSpan={2}>Примечание (необходимые ауд., лекционная неделя и др.)</th>
         </tr>
         <tr>
             <th className={'th'} rowSpan={2}>Лекц.</th>
             <th className={'th'} rowSpan={2}>Практ.</th>
             <th className={'th'} rowSpan={2}>Лаб.</th>
-            <th className={'th'} colSpan={2}>Лекции</th>
-            <th className={'th'} colSpan={2}>Практические занятия</th>
-            <th className={'th'} colSpan={3}>Лабораторные занятия</th>
-        </tr>
-        <tr>
-            <th className={'th'}>№ группы</th>
-            <th className={'th'}>ФИО преподавателя</th>
-            <th className={'th'}>№ группы</th>
-            <th className={'th'}>ФИО преподавателя</th>
-            <th className={'th'}>№ группы</th>
-            <th className={'th'}>№ подгруппы</th>
-            <th className={'th'}>ФИО преподавателя</th>
         </tr>
         </thead>
         <tbody>

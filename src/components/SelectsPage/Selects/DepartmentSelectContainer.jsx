@@ -27,5 +27,5 @@ export const DepartmentSelectContainer = ({departmentName}) => {
                        label: `Кафедра ${departmentName}`
                    } : undefined}
                    options={departments}
-                   onChange={(e) => e && dispatch(setDepartmentName(e.value))}/>
+                   onChange={(e) => (e && dispatch(setDepartmentName(e.value))) || dispatch(setDepartmentName(null))}/>
 }

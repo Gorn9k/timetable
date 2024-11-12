@@ -1,7 +1,8 @@
-import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
 import {getGroupSchedule} from "../../api/schedule-api";
 import {broadcastChannel} from "../../store";
+import {setGroupSchedule} from "../../redux/slices/groupScheduleSlice";
 
 export const GroupSchedule = () => {
 
@@ -11,14 +12,15 @@ export const GroupSchedule = () => {
 
     const Body = ({groupName}) => {
 
-        const [groupSchedule, setGroupSchedule] = useState([]);
+        const groupSchedule = useSelector(state => state.groupSchedulePage.groupSchedule);
+        const dispatch = useDispatch();
 
         useEffect(() => {
             groupName && getGroupSchedule(groupName)
-                .then(value => value && setGroupSchedule(value))
+                .then(value => value && dispatch(setGroupSchedule(value)))
         }, [groupName]);
 
-        return groupSchedule.map(lesson => {
+        return groupName && groupSchedule.map(lesson => {
             return <tr key={lesson.id}>
                 <td className={'td'}>{lesson.lessonDay}</td>
                 <td className={'td'}>{lesson.lessonNumber}</td>

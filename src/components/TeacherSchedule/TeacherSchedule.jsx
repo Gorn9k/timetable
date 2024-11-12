@@ -1,7 +1,8 @@
-import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
 import {getTeacherSchedule} from "../../api/schedule-api";
 import {broadcastChannel} from "../../store";
+import {setTeacherSchedule} from "../../redux/slices/teacherScheduleSlice";
 
 export const TeacherSchedule = () => {
 
@@ -11,14 +12,15 @@ export const TeacherSchedule = () => {
 
     const Body = ({teacherFio}) => {
 
-        const [teacherSchedule, setTeacherSchedule] = useState([]);
+        const teacherSchedule = useSelector(state => state.teacherSchedulePage.teacherSchedule)
+        const dispatch = useDispatch();
 
         useEffect(() => {
             teacherFio && getTeacherSchedule(teacherFio)
-                .then(value => value && setTeacherSchedule(value))
+                .then(value => value && dispatch(setTeacherSchedule(value)))
         }, [teacherFio]);
 
-        return teacherSchedule.map(lesson => {
+        return teacherFio && teacherSchedule.map(lesson => {
             return <tr key={lesson.id}>
                 <td className={'td'}>{lesson.lessonDay}</td>
                 <td className={'td'}>{lesson.lessonNumber}</td>

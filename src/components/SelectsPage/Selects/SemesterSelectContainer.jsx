@@ -19,5 +19,5 @@ export const SemesterSelectContainer = ({semesterName}) => {
                    defaultValue={semesterName ? semesters.find(value =>
                        value.value.includes(semesterName)) : undefined}
                    isClearable={true}
-                   onChange={(e) => e && dispatch(setSemesterName(e.value.split(' ')[0]))}/>
+                   onChange={(e) => (e && dispatch(setSemesterName(e.value))) || dispatch(setSemesterName(null))}/>
 }

@@ -29,7 +29,7 @@ const initialState = {
 }
 
 const loadSlice = createSlice({
-    name: 'loadSlice',
+    name: 'load',
     initialState: initialState,
     reducers: {
         _validateTeacherAndGroupRowId(state, id) {

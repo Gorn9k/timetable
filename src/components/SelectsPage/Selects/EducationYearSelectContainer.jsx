@@ -19,5 +19,5 @@ export const EducationYearSelectContainer = ({learnYear}) => {
                        label: `${learnYear}-й учебный год`
                    } : undefined}
                    isClearable={true}
-                   onChange={(e) => e && dispatch(setLearnYear(e.value))}/>
+                   onChange={(e) => (e && dispatch(setLearnYear(e.value))) || dispatch(setLearnYear(null))}/>
 }

@@ -22,5 +22,5 @@ export const FormEducationSelectContainer = ({educationForm}) => {
                    defaultValue={educationForm ? educationForms.find(value =>
                        value.value === educationForm) : undefined}
                    isClearable={true}
-                   onChange={(e) => e && dispatch(setEducationForm(e.value))}/>
+                   onChange={(e) => (e && dispatch(setEducationForm(e.value))) || dispatch(setEducationForm(null))}/>
 }

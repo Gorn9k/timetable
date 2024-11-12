@@ -62,7 +62,7 @@ export const SelectsPage = () => {
         <FormEducationSelectContainer educationForm={educationForm}/>
         <SemesterSelectContainer semesterName={semesterName}/>
         <EducationYearSelectContainer learnYear={learnYear}/>
-        <button onClick={() => {
+        <button disabled={!(departmentName && educationForm && semesterName && learnYear)} onClick={() => {
             dispatch(setIsCloseTimetable(false))
             openTimetable(generateTimetableUrls(departmentName, educationForm, semesterName, learnYear))
             navigate('/timetable')
