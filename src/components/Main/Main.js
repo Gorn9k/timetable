@@ -1,9 +1,9 @@
 import React, {useState, useMemo, useCallback, useEffect} from "react";
 import {AgGridReact} from "ag-grid-react";
-import "../App/App.css";
 import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "ag-grid-enterprise";
+import "ag-grid-community/styles/ag-theme-quartz.css";
+import "../App/App.css";
+import './Main.css'
 import {agGridRu} from "../../assets/agLocalization";
 import {
     getTimetableThunk,
@@ -29,6 +29,7 @@ import HideGroupModal from "./HideGroupModal";
 import ScheduleModal from "./ScheduleModal";
 import {useNavigate} from "react-router-dom";
 import {setIsCloseTimetable} from "../../redux/slices/loadSlice";
+import {RoomsTableContainer} from "./RoomsTableContainer";
 
 const frameComparator = (valueA, valueB) => {
     const frame = ["1Корпус", "2Корпус", "4Корпус", "5Корпус", "Неизвестно"];
@@ -450,23 +451,14 @@ const Main = (props) => {
                     </div>
                 </div>
                 <div
-                    className="ag-theme-alpine"
+                    className="ag-theme-quartz"
                     style={{
                         height: "calc(100vh - 158px)",
                         width: "100vw",
-                        margin: "auto",
+                        margin: "auto"
                     }}
                 >
-                    <AgGridReact
-                        rowData={rowData}
-                        columnDefs={columnDefs}
-                        gridOptions={gridOptions}
-                        localeText={agGridRu}
-                        onGridReady={onGridReady}
-                        onRowClicked={handleRowClicked}
-                        onRowDoubleClicked={dataRow && openModal}
-                        suppressHorizontalScroll={true}
-                    ></AgGridReact>
+                    <RoomsTableContainer/>
                 </div>
             </>
         );

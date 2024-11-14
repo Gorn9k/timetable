@@ -1,0 +1,17 @@
+.ag-theme-quartz {
+    --ag-cell-horizontal-padding: 5px;
+    --ag-header-cell-horizontal-padding: 5px;
+    text-align: center;
+}
+
+.ag-header-group-cell .ag-header-cell-comp-wrapper {
+    justify-content: center;
+}
+
+.ag-header-group-cell-label, .ag-header-cell-label {
+    justify-content: center;
+}
+
+.ag-ltr .ag-header-cell-resize {
+    right: -5px;
+}

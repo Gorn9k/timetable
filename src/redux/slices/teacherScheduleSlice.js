@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const teacherScheduleSlice = createSlice({
-    name: "teacherSchedule",
+    name: "teacherScheduleSlice",
     initialState,
     reducers: {
         setTeacherSchedule: (state, action) => {

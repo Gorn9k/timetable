@@ -39,12 +39,12 @@ export const LoadContainer = () => {
         useEffect(() => {
             validParams && getLoad(departmentName, educationForm, semesterName, learnYear)
                 .then(loads => {
-                    loads && getTeachers(loads.map(value => value.teacherId))
+                    loads && getTeachers(loads.map(value => value.teacherId).filter(value => !!value))
                         .then(teachers => {
                             teachers && setLoads(loads.map(value => {
                                 const teacher = teachers.find(teacher => teacher.id === value.teacherId)
                                 if (teacher) return {...value, teacherFio: teacher.fullName}
-                            }))
+                            }).filter(value => !!value))
                         })
                 })
         }, []);

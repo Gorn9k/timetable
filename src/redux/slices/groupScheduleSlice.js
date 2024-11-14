@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const groupScheduleSlice = createSlice({
-    name: "groupSchedule",
+    name: "groupScheduleSlice",
     initialState,
     reducers: {
         setGroupSchedule: (state, action) => {

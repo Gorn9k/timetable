@@ -270,3 +270,14 @@ export const getRooms = () => {
       unAuthorized(error);
     });
 };
+
+export const getRoomsByFrame = (frame) => {
+  return baseRoutPatentDean
+      .get(`/api/classes/dto_rsql?sql=frame==${frame}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        unAuthorized(error);
+      });
+}

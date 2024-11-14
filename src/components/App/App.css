@@ -127,22 +127,6 @@
   font-weight: bold;
   line-height: 19px;
 }
-.ag-row:hover {
-  background: #434c63 !important;
-  color: white !important;
-}
-
-.ag-row:hover .ag-icon {
-  color: white !important;
-}
-.ag-theme-alpine .ag-row-selected {
-  background-color: #434c63 !important;
-  background: #434c63 !important;
-  color: white !important;
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
 /* =======================================Loader=========================== */
 .loader {
   position: absolute;

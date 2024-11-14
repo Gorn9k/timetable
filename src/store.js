@@ -2,6 +2,7 @@ import thunkMiddleware from "redux-thunk";
 import mainReducer from "./redux/reducers/mainReducer";
 import teacherScheduleReducer from "./redux/slices/teacherScheduleSlice";
 import groupScheduleReducer from "./redux/slices/groupScheduleSlice"
+import roomReducer from "./redux/slices/roomSlice"
 import loadReducer, {
     setGroupName,
     setIsCloseTimetable,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     mainPage: mainReducer,
     loadPage: loadReducer,
     teacherSchedulePage: teacherScheduleReducer,
-    groupSchedulePage: groupScheduleReducer
+    groupSchedulePage: groupScheduleReducer,
+    roomPage: roomReducer
 });
 
 const syncedActions = new Set();
