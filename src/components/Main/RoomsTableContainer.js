@@ -11,10 +11,10 @@ export const RoomsTableContainer = () => {
     const [rooms, setRooms] = React.useState([])
 
     const columnDefs = useMemo(() => [
-        {headerName: 'Номер аудитории', field: 'roomNumber', minWidth: 200,maxWidth: 200,filter: true},
-        {headerName: 'Кафедра', field: 'departmentId', minWidth: 200,maxWidth: 200,filter: true},
-        {headerName: 'Количество мест', field: 'seatsNumber', minWidth: 200,maxWidth: 200,filter: true},
-        {headerName: 'Тип аудитории', field: 'roomType', minWidth: 200, maxWidth: 200, filter: true}
+        {headerName: 'Номер аудитории', field: 'roomNumber', minWidth: 130, maxWidth: 130, filter: true, pinned: true},
+        {headerName: 'Кафедра', field: 'departmentId', minWidth: 120, maxWidth: 120, filter: true, pinned: true},
+        {headerName: 'Количество мест', field: 'seatsNumber', minWidth: 120, maxWidth: 120, filter: true, pinned: true},
+        {headerName: 'Тип аудитории', field: 'roomType', minWidth: 130, maxWidth: 130, filter: true, pinned: true}
     ], []);
 
     const childrenDefs = useMemo(() => [
@@ -50,8 +50,7 @@ export const RoomsTableContainer = () => {
             resizable: true,
             wrapHeaderText: true,
             autoHeaderHeight: true,
-            minWidth: 0,
-            maxWidth: 22.6,
+            minWidth: 30,
             flex: 1
         }}
         animateRows={true}

@@ -453,9 +453,9 @@ const Main = (props) => {
                 <div
                     className="ag-theme-quartz"
                     style={{
-                        height: "calc(100vh - 158px)",
-                        width: "100vw",
-                        margin: "auto"
+                        height: "calc(100vh - 100px)",
+                        width: "auto",
+                        margin: "0 20px 0 20px"
                     }}
                 >
                     <RoomsTableContainer/>

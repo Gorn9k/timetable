@@ -15,3 +15,7 @@
 .ag-ltr .ag-header-cell-resize {
     right: -5px;
 }
+
+.ag-theme-quartz .ag-cell {
+    border-right: 1px solid #ccc;
+}
