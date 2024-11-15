@@ -9,6 +9,9 @@ import {SelectsPage} from "../SelectsPage/SelectsPage";
 import {LoadContainer} from "../Load/LoadContainer";
 import {TeacherSchedule} from "../TeacherSchedule/TeacherSchedule";
 import {GroupSchedule} from "../GroupSchedule/GroupSchedule";
+import Modal from "react-modal";
+
+Modal.setAppElement('#root');
 
 function App() {
     return (
