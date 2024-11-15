@@ -1,14 +1,14 @@
 import {agGridRu} from "../../assets/agLocalization";
 import {AgGridReact} from "ag-grid-react";
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-quartz.css";
 import Preloader from "../Preloader/Preloader";
 
 export const LessonsTableContainer = ({lessonNumber, dayOfWeek, roomNumber}) => {
 
     const lessons = useSelector(state => state.roomPage.lessons)
+
+    const [gridApi, setGridApi] = useState(null)
 
     const columnDefs = useMemo(() => [
         {headerName: 'Дисциплина', field: 'disciplineName'},
@@ -22,26 +22,25 @@ export const LessonsTableContainer = ({lessonNumber, dayOfWeek, roomNumber}) => 
     ], [])
 
     useEffect(() => {
+        if (gridApi) {
+            gridApi.setGridOption('loading', true)
+            setTimeout(() => gridApi.setGridOption('loading', false), 2000)
+        }
+    }, [lessonNumber, dayOfWeek, roomNumber, gridApi]);
 
-    }, [lessonNumber, dayOfWeek, roomNumber]);
-
-    return <div className={'ag-theme-quartz'} style={{
-        height: "600px",
-        width: "auto",
-    }}>
-        <AgGridReact
-            rowData={lessons}
-            columnDefs={columnDefs}
-            localeText={agGridRu}
-            defaultColDef={{
-                resizable: true,
-                wrapHeaderText: true,
-                autoHeaderHeight: true,
-                minWidth: 30,
-                flex: 1
-            }}
-            loadingOverlayComponent={<Preloader/>}
-            animateRows={true}
-        ></AgGridReact>
-    </div>
+    return <AgGridReact
+        rowData={lessons.length > 0 && lessons}
+        columnDefs={columnDefs}
+        localeText={agGridRu}
+        defaultColDef={{
+            resizable: true,
+            wrapHeaderText: true,
+            autoHeaderHeight: true,
+            minWidth: 30,
+            flex: 1
+        }}
+        loadingOverlayComponent={() => <Preloader/>}
+        onGridReady={(p) => setGridApi(p.api)}
+        animateRows={true}
+    />
 }

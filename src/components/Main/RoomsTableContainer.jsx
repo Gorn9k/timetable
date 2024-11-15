@@ -1,11 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
 import {agGridRu} from "../../assets/agLocalization";
 import {AgGridReact} from 'ag-grid-react'; // React Data Grid Component
-import React, {useEffect, useMemo, useRef, useState} from "react";
-import {getGroup, getRoomsByFrame} from "../../api/api";
+import React, {useEffect, useMemo, useState} from "react";
+import {getRoomsByFrame} from "../../api/api";
 import {LessonsModal} from "./LessonsModal";
-import {setModalIsOpen} from "../../redux/slices/roomSlice";
+import {setLessonsModalIsOpen} from "../../redux/slices/roomSlice";
 import Preloader from "../Preloader/Preloader";
+import {LessonModal} from "./LessonModal";
 
 export const RoomsTableContainer = () => {
 
@@ -13,7 +14,7 @@ export const RoomsTableContainer = () => {
 
     const dispatch = useDispatch()
 
-    const gridRef = useRef()
+    const [gridApi, setGridApi] = useState(null);
 
     const [rooms, setRooms] = useState([])
     const [lessonNumber, setLessonNumber] = useState(null)
@@ -42,7 +43,7 @@ export const RoomsTableContainer = () => {
                 ...item,
                 sortable: false,
                 onCellDoubleClicked: p => {
-                    dispatch(setModalIsOpen(true))
+                    dispatch(setLessonsModalIsOpen(true))
                     setLessonNumber(item.headerName)
                     setDayOfWeek(p.column.originalParent.originalParent.colGroupDef.headerName)
                     setRoomNumber(p.data.roomNumber)
@@ -66,19 +67,22 @@ export const RoomsTableContainer = () => {
     ], []);
 
     useEffect(() => {
-        frame && getRoomsByFrame(frame)
-            .then(value => value && setRooms(value))
-
-    }, [frame]);
+        if (frame && gridApi) {
+            gridApi.setGridOption('loading', true)
+            getRoomsByFrame(frame)
+                .then(value => value && setRooms(value))
+                .finally(() => gridApi.setGridOption('loading', false))
+        }
+    }, [frame, gridApi]);
 
     return <>
+        <LessonModal/>
         <LessonsModal
             roomNumber={roomNumber}
             lessonNumber={lessonNumber}
             dayOfWeekHeaderName={dayOfWeek}
         />
         <AgGridReact
-            ref={gridRef}
             rowData={rooms}
             columnDefs={[...columnDefs, ...columnDefsDaysLessons]}
             localeText={agGridRu}
@@ -91,10 +95,7 @@ export const RoomsTableContainer = () => {
             }}
             animateRows={true}
             loadingOverlayComponent={() => <Preloader/>}
-            onGridReady={(p) => {
-                p.api.setGridOption('loading', true)
-                setTimeout(() => p.api.setGridOption('loading', false), 5000)
-            }}
+            onGridReady={(p) => setGridApi(p.api)}
         />
     </>
 }

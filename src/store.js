@@ -4,13 +4,12 @@ import teacherScheduleReducer from "./redux/slices/teacherScheduleSlice";
 import groupScheduleReducer from "./redux/slices/groupScheduleSlice"
 import roomReducer from "./redux/slices/roomSlice"
 import loadReducer, {
-    setGroupName,
     setIsCloseTimetable,
-    setLaboratoryHours, setLectureHours,
-    setPracticeHours,
-    setTeacherFio
+    setLaboratoryHours,
+    setLectureHours,
+    setPracticeHours
 } from './redux/slices/loadSlice'
-import {configureStore, combineReducers} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from "./redux/sagas/rootSaga";
 
@@ -31,8 +30,6 @@ const syncStateMiddleware = () => (next) => (action) => {
         setLectureHours.type,
         setPracticeHours.type,
         setLaboratoryHours.type,
-        setTeacherFio.type,
-        setGroupName.type,
         setIsCloseTimetable.type
     ].some(type =>
         type === action.type) ? action.type : null

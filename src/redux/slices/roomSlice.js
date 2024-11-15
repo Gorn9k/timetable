@@ -2,10 +2,14 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     frame: 'FIRST',
-    modal: {
+    lessonsModal: {
         isOpen: false
     },
-    lessons: []
+    lessonModal: {
+        isOpen: false
+    },
+    lessons: [],
+    selectedLesson: null
 }
 
 const roomSlice = createSlice({
@@ -15,8 +19,14 @@ const roomSlice = createSlice({
         setFrame(state, action) {
             state.frame = action.payload
         },
-        setModalIsOpen(state, action) {
-            state.modal.isOpen = action.payload
+        setSelectedLesson(state, action) {
+            state.selectedLesson = action.payload
+        },
+        setLessonsModalIsOpen(state, action) {
+            state.lessonsModal.isOpen = action.payload
+        },
+        setLessonModalIsOpen(state, action) {
+            state.lessonModal.isOpen = action.payload
         },
         setLessons: (state, action) => {
             state.groupSchedule = action.payload
@@ -35,7 +45,9 @@ const roomSlice = createSlice({
 
 export const {
     setFrame,
-    setModalIsOpen,
+    setLessonsModalIsOpen,
+    setLessonModalIsOpen,
+    setSelectedLesson,
     addLesson,
     editLesson,
     removeLesson,
