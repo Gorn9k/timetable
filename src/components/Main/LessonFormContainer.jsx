@@ -3,6 +3,8 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 import {LessonForm} from "./LessonForm";
 import '../Main/Main.css'
+import {useEffect} from "react";
+import {setSelectedLesson} from "../../redux/slices/roomSlice";
 
 export const LessonFormContainer = () => {
 
@@ -17,14 +19,18 @@ export const LessonFormContainer = () => {
 
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        return () => dispatch(setSelectedLesson(null))
+    }, []);
+
     return <Formik
         initialValues={{
             id: selectedLesson?.id,
-            disciplineName: disciplineName,
+            disciplineName: disciplineName || selectedLesson?.disciplineName || '',
             lessonType: (lectureHours?.id && 'Лекция') || (practiceHours?.id && 'Практика')
-                || (laboratoryHours?.id && 'Лабораторная'),
-            teacherFullName: teacherFio,
-            group: groupName,
+                || (laboratoryHours?.id && 'Лабораторная') || selectedLesson?.lessonType || '',
+            teacherFullName: teacherFio || selectedLesson?.teacherFullName || '',
+            group: groupName || selectedLesson?.group || '',
             subGroup: selectedLesson?.subGroup || '',
             weekType: selectedLesson?.weekType || '',
             startDate: selectedLesson?.startDate || '',
@@ -32,6 +38,14 @@ export const LessonFormContainer = () => {
         }}
         enableReinitialize={true}
         validationSchema={Yup.object({
+            disciplineName: Yup.string()
+                .required('Поле не может быть пустым'),
+            lessonType: Yup.string()
+                .required('Поле не может быть пустым'),
+            teacherFullName: Yup.string()
+                .required('Поле не может быть пустым'),
+            group: Yup.string()
+                .required('Поле не может быть пустым'),
             subGroup: Yup.string()
                 .required('Поле не может быть пустым'),
             weekType: Yup.string()

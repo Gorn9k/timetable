@@ -44,7 +44,7 @@ export const GroupSchedule = () => {
     }
 
     return <>
-        <div>{groupName && groupName.name}</div>
+        <div>{groupName && groupName}</div>
         <table className={'table'}>
             <thead className={'thead'}>
             <tr>
@@ -61,7 +61,7 @@ export const GroupSchedule = () => {
             </tr>
             </thead>
             <tbody>
-            <Body groupName={groupName && groupName.name}/>
+            <Body groupName={groupName && groupName}/>
             </tbody>
         </table>
     </>

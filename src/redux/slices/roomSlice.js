@@ -29,16 +29,16 @@ const roomSlice = createSlice({
             state.lessonModal.isOpen = action.payload
         },
         setLessons: (state, action) => {
-            state.groupSchedule = action.payload
+            state.lessons = action.payload
         },
         addLesson: (state, action) => {
-            state.groupSchedule.push(action.payload)
+            state.lessons.push(action.payload)
         },
         editLesson: (state, action) => {
-            Object.assign(state.groupSchedule.find(value => value.id === action.payload.id), action.payload)
+            Object.assign(state.lessons.find(value => value.id === action.payload.id), action.payload)
         },
         removeLesson: (state, action) => {
-            state.groupSchedule = state.groupSchedule.filter(value => value.id !== action.payload)
+            state.lessons = state.lessons.filter(value => value.id !== action.payload)
         }
     }
 })

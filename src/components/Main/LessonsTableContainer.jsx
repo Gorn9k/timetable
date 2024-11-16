@@ -1,12 +1,17 @@
 import {agGridRu} from "../../assets/agLocalization";
 import {AgGridReact} from "ag-grid-react";
 import React, {useEffect, useMemo, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../Preloader/Preloader";
+import {getTimetableByRoomNumberAndLessonNumberAndDayOfWeek} from "../../api/api";
+import {setLessonModalIsOpen, setLessons, setSelectedLesson} from "../../redux/slices/roomSlice";
+import {weekdays} from "./ConstantMain";
 
 export const LessonsTableContainer = ({lessonNumber, dayOfWeek, roomNumber}) => {
 
     const lessons = useSelector(state => state.roomPage.lessons)
+
+    const dispatch = useDispatch()
 
     const [gridApi, setGridApi] = useState(null)
 
@@ -22,10 +27,15 @@ export const LessonsTableContainer = ({lessonNumber, dayOfWeek, roomNumber}) => 
     ], [])
 
     useEffect(() => {
-        if (gridApi) {
+        if (lessonNumber && dayOfWeek && roomNumber && gridApi) {
             gridApi.setGridOption('loading', true)
-            setTimeout(() => gridApi.setGridOption('loading', false), 2000)
+            getTimetableByRoomNumberAndLessonNumberAndDayOfWeek(roomNumber, lessonNumber,
+                weekdays.filter(value => value.label === dayOfWeek).shift().value)
+                .then(value => value && dispatch(setLessons(value)))
+                .finally(() => gridApi.setGridOption('loading', false))
         }
+
+        return () => dispatch(setLessons([]))
     }, [lessonNumber, dayOfWeek, roomNumber, gridApi]);
 
     return <AgGridReact
@@ -42,5 +52,9 @@ export const LessonsTableContainer = ({lessonNumber, dayOfWeek, roomNumber}) => 
         loadingOverlayComponent={() => <Preloader/>}
         onGridReady={(p) => setGridApi(p.api)}
         animateRows={true}
+        onRowDoubleClicked={p => {
+            dispatch(setLessonModalIsOpen(true))
+            dispatch(setSelectedLesson(p.data))
+        }}
     />
 }

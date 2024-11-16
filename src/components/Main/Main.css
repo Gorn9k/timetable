@@ -50,15 +50,15 @@
     width: 40vw
 }
 
-.error-message, .label-error {
+.form .error-message, .form .label-error {
     color: red;
 }
 
-.error-message {
+.form .error-message {
     font-size: 15px
 }
 
-input.error, textarea.error {
+.form input.error, .form textarea.error {
     border-color: red;
 }
 

@@ -3,8 +3,8 @@ import { toast } from "react-hot-toast";
 
 const defaultOptionsPatent = {
   //baseURL: "http://192.168.11.252:18088/",
-  baseURL: "https://schedulecit.vstu.by/patent",
-  //baseURL: "http://localhost:18088",
+  //baseURL: "https://schedulecit.vstu.by/patent",
+  baseURL: "http://192.168.40.40:18088",
   headers: {
     "Content-Type": "application/json",
   },
@@ -61,6 +61,17 @@ export const getTimetable = () => {
     .catch((error) => {
       unAuthorized(error);
     });
+};
+
+export const getTimetableByRoomNumberAndLessonNumberAndDayOfWeek = (roomNumber, lessonNumber, dayOfWeek) => {
+  return baseRoutPatent
+      .get(`/api/rooms/byRoomAndLessonAndDay?roomNumber=${roomNumber}&lessonNumber=${lessonNumber}&dayOfWeek=${dayOfWeek}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        unAuthorized(error);
+      });
 };
 
 export const getDiscipline = () => {

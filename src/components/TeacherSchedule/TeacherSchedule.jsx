@@ -44,7 +44,7 @@ export const TeacherSchedule = () => {
     }
 
     return <>
-        <div>{teacherFio && teacherFio.fio}</div>
+        <div>{teacherFio && teacherFio}</div>
         <table className={'table'}>
             <thead className={'thead'}>
             <tr>
@@ -61,7 +61,7 @@ export const TeacherSchedule = () => {
             </tr>
             </thead>
             <tbody>
-            <Body teacherFio={teacherFio && teacherFio.fio}/>
+            <Body teacherFio={teacherFio && teacherFio}/>
             </tbody>
         </table>
     </>
